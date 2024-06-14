@@ -1,8 +1,8 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mosaico_ide/configuration/app_color_scheme.dart';
-import 'package:mosaico_ide/project/project_manager.dart';
-import 'package:mosaico_ide/project/widgets/editor.dart';
+import 'package:mosaico_ide/project/controllers/project_controller.dart';
+import 'package:mosaico_ide/project/widgets/project.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -26,6 +26,8 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
+            // Add project and open project buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -53,13 +55,13 @@ class HomePage extends StatelessWidget {
     if (directoryPath != null) {
 
       // Create a new project manager
-      var projectManager = await ProjectManager.createNewProject(directoryPath, "TEST");
+      var projectManager = await ProjectController.createNewProject(directoryPath, "TEST");
 
       // Navigate to the editor page
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => Editor(projectManager),
+          builder: (context) => Project(projectManager),
         ),
       );
     }
@@ -73,13 +75,13 @@ class HomePage extends StatelessWidget {
     if (directoryPath != null) {
 
       // Create a new project manager
-      var projectManager = await ProjectManager.openProject(directoryPath);
+      var projectManager = await ProjectController.openProject(directoryPath);
 
       // Navigate to the editor page
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => Editor(projectManager),
+          builder: (context) => Project(projectManager),
         ),
       );
     }

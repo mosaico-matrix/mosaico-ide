@@ -1,85 +1,85 @@
 import 'package:flutter/material.dart';
-import '../project_manager.dart';
-import 'sidebar_item.dart'; // import the SidebarItem widget
+import 'package:mosaico_ide/project/widgets/editors/editor.dart';
+import 'package:mosaico_ide/project/widgets/editors/form_template_editor.dart';
+import 'package:provider/provider.dart';
+import '../controllers/project_controller.dart';
+import '../controllers/sidebar_controller.dart';
 
-class Sidebar extends StatefulWidget {
-  final ProjectManager projectManager;
-  final VoidCallback onRunnerPressed;
-  final VoidCallback onFormPressed;
-  final VoidCallback onConfigurationPressed;
+class Sidebar extends StatelessWidget {
+  final List<Editor> editors = [
+    FormTemplateEditor(),
+  ];
 
-  Sidebar({
-    required this.projectManager,
-    required this.onRunnerPressed,
-    required this.onFormPressed,
-    required this.onConfigurationPressed,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _SidebarState createState() => _SidebarState();
-}
-
-class _SidebarState extends State<Sidebar> {
-  bool isCollapsed = false;
+  Sidebar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 100),
-      width: isCollapsed ? 50 : 250,
-      color: Colors.black,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Sidebar header
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(
-                  isCollapsed
-                      ? Icons.view_sidebar_outlined
-                      : Icons.view_sidebar,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  setState(() {
-                    isCollapsed = !isCollapsed;
-                  });
-                },
-              ),
-              Text(isCollapsed ? '' : widget.projectManager.getProjectName(),
-                  style: const TextStyle(color: Colors.white)),
-            ],
-          ),
+    return Consumer<SidebarController>(
+        builder: (context, controller, child) => Drawer(
+              child: Column(
+                children: [
 
-          // Sidebar items
-          Expanded(
-            child: ListView(
-              children: [
-                SidebarItem(
-                  icon: Icons.home,
-                  title: 'Runner',
-                  isCollapsed: isCollapsed,
-                  onTap: widget.onRunnerPressed,
-                ),
-                SidebarItem(
-                  icon: Icons.person,
-                  title: 'Form',
-                  isCollapsed: isCollapsed,
-                  onTap: widget.onFormPressed,
-                ),
-                SidebarItem(
-                  icon: Icons.settings,
-                  title: 'Configuration',
-                  isCollapsed: isCollapsed,
-                  onTap: widget.onConfigurationPressed,
-                ),
-              ],
-            ),
-          ),
-        ],
+                  // Header
+                  Header(context),
+
+                  // List of file editors
+                  Editors(controller),
+
+                  //
+                  // // Bottom stuff
+                  // const Spacer(),
+                  // const Divider(),
+                  // ListTile(
+                  //   title: const Text('Close project'),
+                  //   onTap: () {
+                  //     Navigator.of(context).pop();
+                  //     Navigator.of(context).pop();
+                  //   },
+                  // ),
+                ],
+              ),
+            ));
+  }
+
+  Widget Editors(SidebarController controller) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: editors.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(editors[index].title),
+            leading: editors[index].icon,
+            onTap: () {
+              controller.setSelectedEditor(editors[index]);
+              Navigator.of(context).pop();
+            },
+          );
+        },
       ),
     );
   }
+
+
+Widget Header(BuildContext context) {
+  return DrawerHeader(
+    decoration: const BoxDecoration(
+      color: Colors.black,
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          'Mosaico IDE',
+          style: const TextStyle(color: Colors.white, fontSize: 20),
+        ),
+        IconButton(
+          icon: const Icon(Icons.close, color: Colors.white),
+          onPressed: () {
+            Navigator.of(context).pop(); // Close the drawer
+          },
+        ),
+      ],
+    ),
+  );
+}
 }

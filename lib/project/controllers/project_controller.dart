@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-class ProjectManager {
+class ProjectController {
 
   final String _projectPath;
   late final String _projectName;
@@ -17,7 +17,7 @@ class ProjectManager {
     _projectName = metadata['name'];
   }
 
-  ProjectManager(this._projectPath)
+  ProjectController(this._projectPath)
   {
     _parseMetadata();
   }
@@ -35,7 +35,7 @@ class ProjectManager {
 
 
   /// Construct a new project manager by creating required files
-  static Future<ProjectManager> createNewProject(String directoryPath, String projectName) async {
+  static Future<ProjectController> createNewProject(String directoryPath, String projectName) async {
 
     // Create config form
     File file = File('$directoryPath/config-form.json');
@@ -52,11 +52,11 @@ class ProjectManager {
     // Create runner chai
 
     // Return new project manager
-    return ProjectManager(directoryPath);
+    return ProjectController(directoryPath);
   }
 
   /// Construct a new project manager by opening existing files
-  static Future<ProjectManager> openProject(String directoryPath) async {
-    return ProjectManager(directoryPath);
+  static Future<ProjectController> openProject(String directoryPath) async {
+    return ProjectController(directoryPath);
   }
 }
