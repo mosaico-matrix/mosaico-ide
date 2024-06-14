@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:mosaico_ide/project/widgets/editors/editor.dart';
-import 'package:mosaico_ide/project/widgets/editors/form_template_editor.dart';
+import 'package:mosaico_ide/project/widgets/editors/config_form_editor.dart';
 import 'package:provider/provider.dart';
 import '../controllers/project_controller.dart';
 import '../controllers/sidebar_controller.dart';
 
 class Sidebar extends StatelessWidget {
   final List<Editor> editors = [
-    FormTemplateEditor(),
+    ConfigFormEditor(),
   ];
 
   Sidebar({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return Consumer<SidebarController>(
         builder: (context, controller, child) => Drawer(
               child: Column(
@@ -42,6 +43,10 @@ class Sidebar extends StatelessWidget {
             title: Text(editors[index].title),
             leading: editors[index].icon,
             onTap: () {
+
+              // Check if dirty before navigating
+              //if(controller.dir)
+
               controller.setSelectedEditor(editors[index]);
               Navigator.of(context).pop();
             },
