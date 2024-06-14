@@ -11,5 +11,4 @@ abstract class Editor extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-
 }

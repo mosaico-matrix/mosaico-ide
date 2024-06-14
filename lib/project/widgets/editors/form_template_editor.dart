@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mosaico_ide/project/controllers/project_controller.dart';
+import 'package:provider/provider.dart';
 import 'editor.dart';
 
 class FormTemplateEditor extends Editor {
@@ -11,8 +12,17 @@ class FormTemplateEditor extends Editor {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Form Template Editor'),
+
+    return Consumer<ProjectController>(
+      builder: (context, controller, child) {
+        return Center(
+          child: Column(
+            children: [
+              Text(controller.getProjectPath()),
+            ],
+          ),
+        );
+      },
     );
   }
 

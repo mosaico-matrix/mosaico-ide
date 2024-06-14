@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mosaico_ide/project/controllers/sidebar_controller.dart';
-import 'package:mosaico_ide/project/widgets/editors/editor.dart';
-import 'package:mosaico_ide/project/widgets/editors/form_template_editor.dart';
 import 'package:mosaico_ide/project/widgets/sidebar.dart';
 import 'package:provider/provider.dart';
 import '../controllers/project_controller.dart';
 
 class Project extends StatefulWidget {
-  final ProjectController projectManager;
+  final ProjectController projectController;
 
-  const Project(this.projectManager, {super.key});
+  const Project(this.projectController, {super.key});
 
   @override
   _ProjectState createState() => _ProjectState();
@@ -21,10 +19,11 @@ class _ProjectState extends State<Project> {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => SidebarController()),
+          ChangeNotifierProvider(create: (context) => widget.projectController),
         ],
         child: Scaffold(
           appBar: AppBar(
-            title: Text(widget.projectManager.getProjectName()),
+            title: Text(widget.projectController.getProjectName()),
           ),
           drawer: Sidebar(),
           body: Consumer<SidebarController>(

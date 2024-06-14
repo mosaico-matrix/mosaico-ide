@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-class ProjectController {
+import 'package:flutter/material.dart';
+
+class ProjectController extends ChangeNotifier {
 
   final String _projectPath;
   late final String _projectName;

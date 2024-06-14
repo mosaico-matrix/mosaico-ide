@@ -18,24 +18,16 @@ class Sidebar extends StatelessWidget {
         builder: (context, controller, child) => Drawer(
               child: Column(
                 children: [
-
                   // Header
                   Header(context),
 
                   // List of file editors
                   Editors(controller),
 
-                  //
-                  // // Bottom stuff
-                  // const Spacer(),
-                  // const Divider(),
-                  // ListTile(
-                  //   title: const Text('Close project'),
-                  //   onTap: () {
-                  //     Navigator.of(context).pop();
-                  //     Navigator.of(context).pop();
-                  //   },
-                  // ),
+                  // Bottom stuff
+                  const Spacer(),
+                  const Divider(),
+                  BottomOptions(context),
                 ],
               ),
             ));
@@ -59,27 +51,36 @@ class Sidebar extends StatelessWidget {
     );
   }
 
+  Widget Header(BuildContext context) {
+    return DrawerHeader(
+      decoration: const BoxDecoration(
+        color: Colors.black,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Mosaico IDE',
+            style: const TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          IconButton(
+            icon: const Icon(Icons.close, color: Colors.white),
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the drawer
+            },
+          ),
+        ],
+      ),
+    );
+  }
 
-Widget Header(BuildContext context) {
-  return DrawerHeader(
-    decoration: const BoxDecoration(
-      color: Colors.black,
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          'Mosaico IDE',
-          style: const TextStyle(color: Colors.white, fontSize: 20),
-        ),
-        IconButton(
-          icon: const Icon(Icons.close, color: Colors.white),
-          onPressed: () {
-            Navigator.of(context).pop(); // Close the drawer
-          },
-        ),
-      ],
-    ),
-  );
-}
+  Widget BottomOptions(BuildContext context) {
+    return ListTile(
+      title: const Text('Close project'),
+      onTap: () {
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+      },
+    );
+  }
 }
