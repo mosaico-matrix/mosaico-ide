@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mosaico_flutter_core/modules/config_form/config_output.dart';
+import 'package:mosaico_flutter_core/modules/config_form/models/config_output.dart';
 import 'package:mosaico_flutter_core/modules/config_form/pages/config_generator.dart';
 import 'package:mosaico_ide/project/state/project_state.dart';
 import 'package:mosaico_ide/toaster.dart';
@@ -16,7 +16,7 @@ class ConfigFormEditor extends Editor {
 
   ConfigFormEditor({super.key})
       : super(
-          icon: Icon(Icons.edit_document),
+          icon: const Icon(Icons.edit_document),
           title: 'Configuration Form',
         );
 
@@ -45,7 +45,7 @@ class ConfigFormEditor extends Editor {
       BuildContext context, ProjectState projectController) {
     return [
       IconButton(
-        icon: Icon(Icons.construction),
+        icon: const Icon(Icons.construction),
         tooltip: 'Build',
         onPressed: () async {
           // Save file if not already saved
