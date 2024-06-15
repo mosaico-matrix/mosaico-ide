@@ -20,6 +20,8 @@ class ProjectBuilder
         '''
           {
           "form": {
+          "title": "Widget Configuration",
+          "description": "Configure your widget here",
             "fields": [
               {
                 "name": {
