@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:mosaico_ide/project/widgets/editors/editor.dart';
 import 'package:mosaico_ide/project/widgets/editors/config_form_editor.dart';
 import 'package:provider/provider.dart';
-import '../controllers/project_controller.dart';
-import '../controllers/sidebar_controller.dart';
+import '../../toaster.dart';
+import '../state/project_state.dart';
+import '../state/sidebar_state.dart';
 
 class Sidebar extends StatelessWidget {
+
+  // Register all available editors
   final List<Editor> editors = [
     ConfigFormEditor(),
   ];
@@ -14,27 +17,26 @@ class Sidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return Consumer<SidebarController>(
-        builder: (context, controller, child) => Drawer(
-              child: Column(
-                children: [
-                  // Header
-                  Header(context),
-
-                  // List of file editors
-                  Editors(controller),
-
-                  // Bottom stuff
-                  const Spacer(),
-                  const Divider(),
-                  BottomOptions(context),
-                ],
-              ),
-            ));
+    return Drawer(
+      child: Column(
+        children: [
+      
+          // Header
+          Header(context),
+      
+          // List of file editors
+          Editors(),
+      
+          // Bottom stuff
+          const Spacer(),
+          const Divider(),
+          BottomOptions(context),
+        ],
+      ),
+    );
   }
 
-  Widget Editors(SidebarController controller) {
+  Widget Editors() {
     return Expanded(
       child: ListView.builder(
         itemCount: editors.length,
@@ -44,10 +46,19 @@ class Sidebar extends StatelessWidget {
             leading: editors[index].icon,
             onTap: () {
 
-              // Check if dirty before navigating
-              //if(controller.dir)
+              // Check if current file is dirty before navigating
+              bool dirty = Provider.of<ProjectState>(context, listen: false).isDirty();
 
-              controller.setSelectedEditor(editors[index]);
+              // If dirty, show a dialog to confirm
+              if (dirty) {
+                Toaster.warning('You have unsaved changes!');
+              }
+
+              // Set selected editor
+              Provider.of<SidebarState>(context, listen: false)
+                  .setSelectedEditor(editors[index]);
+
+              // Close the drawer
               Navigator.of(context).pop();
             },
           );

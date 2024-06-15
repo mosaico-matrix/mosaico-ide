@@ -1,16 +1,20 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mosaico_ide/configuration/app_color_scheme.dart';
-import 'package:mosaico_ide/project/controllers/project_controller.dart';
+import 'package:mosaico_ide/project/project_builder.dart';
+import 'package:mosaico_ide/project/state/project_state.dart';
 import 'package:mosaico_ide/project/widgets/project.dart';
+import 'package:toastification/toastification.dart';
 
 void main() {
-  runApp(MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Dotted',
-        colorScheme: AppColorScheme.getDefaultColorScheme(),
-      ),
-      home: HomePage()));
+  runApp(ToastificationWrapper(
+    child: MaterialApp(
+        theme: ThemeData(
+          fontFamily: 'Dotted',
+          colorScheme: AppColorScheme.getDefaultColorScheme(),
+        ),
+        home: HomePage()),
+  ));
 }
 
 class HomePage extends StatelessWidget {
@@ -26,13 +30,12 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             // Add project and open project buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  onPressed: () => _onAddProjectPressed(context),
+                  onPressed: () => _onCreateProjectPressed(context),
                   icon: Icon(Icons.add_circle, size: 150),
                 ),
                 IconButton(
@@ -47,43 +50,39 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  void _onAddProjectPressed(BuildContext context) async {
+  void _navigateToProject(BuildContext context, String projectPath) async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Project(projectPath),
+      ),
+    );
+  }
 
+  void _onCreateProjectPressed(BuildContext context) async {
     // Request file picker to select a directory
     String? directoryPath = await FilePicker.platform.getDirectoryPath();
-
-    if (directoryPath != null) {
-
-      // Create a new project manager
-      var projectManager = await ProjectController.createNewProject(directoryPath, "TEST");
-
-      // Navigate to the editor page
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Project(projectManager),
-        ),
-      );
+    if (directoryPath == null) {
+      // Todo: Show error message
+      return;
     }
+
+    // Create a new project
+    ProjectBuilder.createNewProject(directoryPath, 'New Project');
+
+    // Navigate to the editor page
+    _navigateToProject(context, directoryPath);
   }
 
   void _onOpenProjectPressed(BuildContext context) async {
-
     // Request file picker to select a directory
     String? directoryPath = await FilePicker.platform.getDirectoryPath();
 
-    if (directoryPath != null) {
-
-      // Create a new project manager
-      var projectManager = await ProjectController.openProject(directoryPath);
-
-      // Navigate to the editor page
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Project(projectManager),
-        ),
-      );
+    if (directoryPath == null) {
+      return;
     }
+
+    // Navigate to the editor page
+    _navigateToProject(context, directoryPath);
   }
 }

@@ -1,47 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:mosaico_ide/project/controllers/sidebar_controller.dart';
+import 'package:mosaico_ide/project/state/sidebar_state.dart';
 import 'package:mosaico_ide/project/widgets/sidebar.dart';
 import 'package:provider/provider.dart';
-import '../controllers/project_controller.dart';
+import 'package:toastification/toastification.dart';
+import '../../toaster.dart';
+import '../state/project_state.dart';
 
-class Project extends StatefulWidget {
-  final ProjectController projectController;
+class Project extends StatelessWidget {
+  final String _workingPath;
 
-  const Project(this.projectController, {Key? key}) : super(key: key);
+  const Project(this._workingPath, {Key? key}) : super(key: key);
 
-  @override
-  _ProjectState createState() => _ProjectState();
-}
-
-class _ProjectState extends State<Project> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => SidebarController()),
-        ChangeNotifierProvider(create: (context) => widget.projectController),
+        ChangeNotifierProvider(create: (context) => SidebarState()),
+        ChangeNotifierProvider(create: (context) => ProjectState(_workingPath)),
       ],
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(widget.projectController.getProjectName()),
-        ),
-        drawer: Sidebar(),
-        body: Consumer<SidebarController>(
-          builder: (context, sidebarController, child) {
-            return Scaffold(
-              floatingActionButton: Visibility(
-                visible: sidebarController.getSelectedEditor() != null,
-                child: FloatingActionButton(
-                  onPressed: () {
-                    widget.projectController.saveProject();
-                  },
-                  child: const Icon(Icons.save),
-                ),
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(context.watch<ProjectState>().getProjectName()),
+            ),
+            floatingActionButton: Visibility(
+              visible: context.watch<ProjectState>().isDirty(),
+              child: FloatingActionButton(
+                onPressed: (){
+                  context.read<ProjectState>().saveProject();
+                  Toaster.success('Saved!');
+                },
+                child: const Icon(Icons.save),
               ),
-              body: sidebarController.getSelectedEditor() ?? EmptyEditor(),
-            );
-          },
-        ),
+            ),
+            drawer: Sidebar(),
+            body: Scaffold(
+              body: context.watch<SidebarState>().getSelectedEditor() ??
+                  EmptyEditor(),
+            ),
+          );
+        },
       ),
     );
   }

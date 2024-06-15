@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/editors/editor.dart';
 
-class SidebarController extends ChangeNotifier {
+class SidebarState extends ChangeNotifier {
   Editor? _selectedEditor;
 
   void setSelectedEditor(Editor editor) {
