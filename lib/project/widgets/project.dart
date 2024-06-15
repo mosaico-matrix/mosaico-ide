@@ -25,7 +25,7 @@ class Project extends StatelessWidget {
               title: Text(context.watch<ProjectState>().getProjectName()),
             ),
             floatingActionButton: Visibility(
-              visible: context.watch<ProjectState>().isDirty(),
+              visible: context.watch<SidebarState>().getSelectedEditor() != null,
               child: FloatingActionButton(
                 onPressed: (){
                   context.read<ProjectState>().saveProject();
