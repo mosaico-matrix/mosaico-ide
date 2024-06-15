@@ -21,7 +21,7 @@ abstract class Editor extends StatelessWidget {
     return Column(
         children: [
           Row(children: buildActions(context, Provider.of<ProjectState>(context, listen: false))),
-          buildEditor(context)
+          Flexible(child: buildEditor(context))
         ]
     );
   }

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:mosaico_config_generator/form/config_form.dart';
+import 'package:mosaico_config_generator/form/config_output.dart';
 import 'package:mosaico_ide/project/state/project_state.dart';
-import 'package:mosaico_ide/project/widgets/project.dart';
 import 'package:mosaico_ide/toaster.dart';
 import 'package:provider/provider.dart';
 import 'editor.dart';
 import 'package:flutter_code_editor/flutter_code_editor.dart';
 import 'package:highlight/languages/json.dart';
 import 'package:flutter_highlight/themes/monokai-sublime.dart';
-import 'package:mosaico_config_generator/pages/config_generator.dart';
+import 'package:mosaico_config_generator/form/pages/config_generator.dart';
 
 class ConfigFormEditor extends Editor {
   final codeController = CodeController(
@@ -23,7 +22,6 @@ class ConfigFormEditor extends Editor {
 
   @override
   Widget buildEditor(BuildContext context) {
-
     // Set the code controller text to the project's configuration form
     codeController.text = Provider.of<ProjectState>(context, listen: false)
         .getConfigFormFileContent();
@@ -46,18 +44,28 @@ class ConfigFormEditor extends Editor {
   List<Widget> buildActions(
       BuildContext context, ProjectState projectController) {
     return [
-
       IconButton(
         icon: Icon(Icons.construction),
         tooltip: 'Build',
-        onPressed: () {
-          Navigator.of(context).push(
+        onPressed: () async {
+          // Save file if not already saved
+          if (projectController.isDirty()) {
+            projectController.saveProject();
+            Toaster.success('Saved!');
+          }
+
+          // Navigate to config generator
+          ConfigOutput? output = await Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => ConfigGenerator(
-                      ConfigForm(projectController.getConfigFormFileContent()),
-                    )
-            ),
+                    projectController.getConfigFormFileContent())),
           );
+
+          if (output == null) {
+            Toaster.error('Aborted!');
+          } else {
+            Toaster.success('Built!');
+          }
         },
       ),
     ];

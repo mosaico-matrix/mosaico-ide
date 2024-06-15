@@ -46,12 +46,15 @@ class Sidebar extends StatelessWidget {
             leading: editors[index].icon,
             onTap: () {
 
+              var projectState = Provider.of<ProjectState>(context, listen: false);
+
               // Check if current file is dirty before navigating
-              bool dirty = Provider.of<ProjectState>(context, listen: false).isDirty();
+              bool dirty = projectState.isDirty();
 
               // If dirty, show a dialog to confirm
               if (dirty) {
-                Toaster.warning('You have unsaved changes!');
+                Toaster.warning('You have unsaved changes, in future show a dialog to confirm');
+                projectState.saveProject();
               }
 
               // Set selected editor
@@ -68,31 +71,34 @@ class Sidebar extends StatelessWidget {
   }
 
   Widget Header(BuildContext context) {
-    return DrawerHeader(
-      decoration: const BoxDecoration(
-        color: Colors.black,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'Mosaico IDE',
-            style: const TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          IconButton(
-            icon: const Icon(Icons.close, color: Colors.white),
-            onPressed: () {
-              Navigator.of(context).pop(); // Close the drawer
-            },
-          ),
-        ],
+    return SizedBox(
+      height: 100,
+      child: DrawerHeader(
+        decoration: const BoxDecoration(
+          color: Colors.black,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Mosaico IDE',
+              style: const TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            IconButton(
+              icon: const Icon(Icons.close, color: Colors.white),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the drawer
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget BottomOptions(BuildContext context) {
     return ListTile(
-      title: const Text('Close project'),
+      title: const Text('Close project', style: TextStyle(color: Colors.red)),
       onTap: () {
         Navigator.of(context).pop();
         Navigator.of(context).pop();
