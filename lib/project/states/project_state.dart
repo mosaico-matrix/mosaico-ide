@@ -5,15 +5,19 @@ import 'package:flutter/material.dart';
 
 class ProjectState extends ChangeNotifier {
 
-  // Project data
+  /// Project data
   final String _projectPath;
   late String _projectName = '';
 
-  // In memory project data
+  /// In memory project data
   String _configForm = '';
+  String _widgetScript = '';
 
-  // State variables
+  /// Memory differs from disk
   bool _isDirty = false;
+
+  /// Connected devices
+  String? _remoteDeviceIp;
 
   /// Parse metadata file to set project data
   void _parseMetadata() async {

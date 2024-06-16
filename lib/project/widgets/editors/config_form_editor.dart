@@ -64,12 +64,15 @@ class ConfigFormEditor extends Editor {
                     projectController.getConfigFormFileContent())),
           );
 
+          // User dismissed the form
           if (output == null) {
-            Toaster.error('Aborted!');
-          } else {
-            Toaster.success('Built!');
-            Toaster.success(output.exportToArchive());
+            return;
           }
+
+          // Export the output to the archive
+          Toaster.success('Built!');
+            Toaster.success(output.exportToArchive());
+
         },
       ),
     ];
