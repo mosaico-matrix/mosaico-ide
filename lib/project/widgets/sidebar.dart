@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mosaico_ide/project/widgets/editors/editor.dart';
 import 'package:mosaico_ide/project/widgets/editors/config_form_editor.dart';
 import 'package:provider/provider.dart';
-import '../../toaster.dart';
+import 'package:mosaico_flutter_core/toaster.dart';
 import '../states/project_state.dart';
 import '../states/sidebar_state.dart';
 

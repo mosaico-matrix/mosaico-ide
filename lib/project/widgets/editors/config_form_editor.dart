@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mosaico_flutter_core/modules/config_form/models/config_output.dart';
 import 'package:mosaico_flutter_core/modules/config_form/pages/config_generator.dart';
 import 'package:mosaico_ide/project/states/project_state.dart';
-import 'package:mosaico_ide/toaster.dart';
+import 'package:mosaico_flutter_core/toaster.dart';
 import 'package:provider/provider.dart';
 import 'editor.dart';
 import 'package:flutter_code_editor/flutter_code_editor.dart';
@@ -22,9 +22,13 @@ class ConfigFormEditor extends Editor {
 
   @override
   Widget buildEditor(BuildContext context) {
+
+
+    var projectState = Provider.of<ProjectState>(context, listen: false);
+
     // Set the code controller text to the project's configuration form
-    codeController.text = Provider.of<ProjectState>(context, listen: false)
-        .getConfigFormFileContent();
+    codeController.text = projectState.getConfigFormFileContent();
+    projectState.updateConfigForm(codeController.text);
 
     return CodeTheme(
       data: CodeThemeData(styles: monokaiSublimeTheme),
@@ -32,8 +36,7 @@ class ConfigFormEditor extends Editor {
         child: CodeField(
           controller: codeController,
           onChanged: (value) {
-            Provider.of<ProjectState>(context, listen: false)
-                .updateConfigForm(value);
+            projectState.updateConfigForm(value);
           },
         ),
       ),
@@ -65,6 +68,7 @@ class ConfigFormEditor extends Editor {
             Toaster.error('Aborted!');
           } else {
             Toaster.success('Built!');
+            Toaster.success(output.exportToArchive());
           }
         },
       ),

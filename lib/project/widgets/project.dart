@@ -3,7 +3,7 @@ import 'package:mosaico_ide/project/states/sidebar_state.dart';
 import 'package:mosaico_ide/project/widgets/sidebar.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
-import '../../toaster.dart';
+import 'package:mosaico_flutter_core/toaster.dart';
 import '../states/project_state.dart';
 
 class Project extends StatelessWidget {
