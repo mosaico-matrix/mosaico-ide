@@ -2,7 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mosaico_flutter_core/configuration/app_color_scheme.dart';
 import 'package:mosaico_ide/project/project_builder.dart';
-import 'package:mosaico_ide/project/state/project_state.dart';
+import 'package:mosaico_ide/project/states/project_state.dart';
 import 'package:mosaico_ide/project/widgets/project.dart';
 import 'package:toastification/toastification.dart';
 

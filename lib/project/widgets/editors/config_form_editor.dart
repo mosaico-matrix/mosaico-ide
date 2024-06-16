@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mosaico_flutter_core/modules/config_form/models/config_output.dart';
 import 'package:mosaico_flutter_core/modules/config_form/pages/config_generator.dart';
-import 'package:mosaico_ide/project/state/project_state.dart';
+import 'package:mosaico_ide/project/states/project_state.dart';
 import 'package:mosaico_ide/toaster.dart';
 import 'package:provider/provider.dart';
 import 'editor.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mosaico_ide/project/state/sidebar_state.dart';
+import 'package:mosaico_ide/project/states/sidebar_state.dart';
 import 'package:mosaico_ide/project/widgets/sidebar.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 import '../../toaster.dart';
-import '../state/project_state.dart';
+import '../states/project_state.dart';
 
 class Project extends StatelessWidget {
   final String _workingPath;

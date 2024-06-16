@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mosaico_ide/project/state/project_state.dart';
+import 'package:mosaico_ide/project/states/project_state.dart';
 import 'package:provider/provider.dart';
 
 abstract class Editor extends StatelessWidget {

@@ -3,8 +3,8 @@ import 'package:mosaico_ide/project/widgets/editors/editor.dart';
 import 'package:mosaico_ide/project/widgets/editors/config_form_editor.dart';
 import 'package:provider/provider.dart';
 import '../../toaster.dart';
-import '../state/project_state.dart';
-import '../state/sidebar_state.dart';
+import '../states/project_state.dart';
+import '../states/sidebar_state.dart';
 
 class Sidebar extends StatelessWidget {
 

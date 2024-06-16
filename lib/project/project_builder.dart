@@ -25,7 +25,7 @@ class ProjectBuilder
             "fields": [
               {
                 "name": {
-                  "type": "text",
+                  "type": "string",
                   "label": "Name",
                   "required": true,
                   "placeholder": "Enter some text here :)",
@@ -37,7 +37,7 @@ class ProjectBuilder
               },
               {
                 "email": {
-                  "type": "text",
+                  "type": "string",
                   "label": "Description",
                   "required": true,
                   "placeholder": "Some other text",
