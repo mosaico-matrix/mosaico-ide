@@ -1,21 +1,39 @@
+import 'dart:async';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:mosaico_flutter_core/exceptions/exception_handler.dart';
+import 'package:mosaico_flutter_core/toaster.dart';
 import 'package:mosaico_flutter_core/configuration/app_color_scheme.dart';
 import 'package:mosaico_ide/project/project_builder.dart';
-import 'package:mosaico_ide/project/states/project_state.dart';
 import 'package:mosaico_ide/project/widgets/project.dart';
 import 'package:toastification/toastification.dart';
 
 void main() {
-  runApp(ToastificationWrapper(
-    child: MaterialApp(
-        theme: ThemeData(
-          fontFamily: 'Dotted',
-          colorScheme: AppColorScheme.getDefaultColorScheme(),
-        ),
-        home: HomePage()),
-  ));
+  runZonedGuarded(() {
+    runApp(const ToastificationWrapper(child: App()));
+  }, (error, stackTrace) {
+    handleException(error, stackTrace);
+  });
 }
+
+class App extends StatelessWidget {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Dotted',
+        colorScheme: AppColorScheme.getDefaultColorScheme(),
+      ),
+      home: Builder(
+        builder: (context) =>  HomePage(), //TextsPage()//
+      ),
+    );
+  }
+}
+
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});

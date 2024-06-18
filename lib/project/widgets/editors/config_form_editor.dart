@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mosaico_flutter_core/modules/config_form/models/config_output.dart';
 import 'package:mosaico_flutter_core/modules/config_form/pages/config_generator.dart';
+import 'package:mosaico_flutter_core/modules/networking/channels/coap/widget_configurations_service.dart';
 import 'package:mosaico_ide/project/states/project_state.dart';
 import 'package:mosaico_flutter_core/toaster.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +48,7 @@ class ConfigFormEditor extends Editor {
   List<Widget> buildActions(
       BuildContext context, ProjectState projectController) {
     return [
+
       IconButton(
         icon: const Icon(Icons.construction),
         tooltip: 'Build',
@@ -71,9 +73,9 @@ class ConfigFormEditor extends Editor {
 
           // Export the output to the archive
           Toaster.success('Built!');
-            Toaster.success(output.exportToArchive());
+          var a = await WidgetConfigurationsService.uploadWidgetConfiguration(1, 'MAIZ', output.exportToArchive());
 
-        },
+          },
       ),
     ];
   }
