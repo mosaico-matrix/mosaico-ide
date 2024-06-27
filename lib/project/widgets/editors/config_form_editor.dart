@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mosaico_flutter_core/modules/config_form/models/config_output.dart';
 import 'package:mosaico_flutter_core/modules/config_form/pages/config_generator.dart';
@@ -63,7 +65,7 @@ class ConfigFormEditor extends Editor {
           ConfigOutput? output = await Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => ConfigGenerator(
-                    projectController.getConfigFormFileContent())),
+                    jsonDecode(projectController.getConfigFormFileContent()))),
           );
 
           // User dismissed the form
