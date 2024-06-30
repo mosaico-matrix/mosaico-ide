@@ -20,14 +20,15 @@ class SidebarEditors extends StatelessWidget {
           return ListTile(
             title: Text(editors[index].title),
             leading: editors[index].icon,
-            onTap: () => _onEditorSelected(projectState, editors[index]),
+            onTap: () => _onEditorSelected(projectState, editors[index], context),
           );
         },
       ),
     );
   }
 
-  void _onEditorSelected(ProjectState projectState, MatrixEditor editor) {
+  void _onEditorSelected(ProjectState projectState, MatrixEditor editor, BuildContext context) {
     projectState.setSelectedEditor(editor);
+    Navigator.of(context).pop();
   }
 }

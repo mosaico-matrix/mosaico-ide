@@ -22,6 +22,12 @@ class ProjectFile {
     _isDirty = true;
   }
 
+  /// Append content to the file
+  void appendContent(String content) {
+    _content += content;
+    _isDirty = true;
+  }
+
   /// Get the content of the file
   String getContent() {
     return _content;
@@ -36,7 +42,7 @@ class ProjectFile {
   }
 
   /// Save the file to the disk
-  void save() async {
+  Future<void> save() async {
     await File(_path).writeAsString(_content);
     _isDirty = false;
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mosaico_ide/features/project/presentation/widgets/appbar/project_app_bar.dart';
 import 'package:mosaico_ide/features/project/presentation/widgets/fab/save_project_button.dart';
 import 'package:provider/provider.dart';
-import '../states/matrix_state.dart';
+import '../states/matrix_devices_state.dart';
 import '../states/project_state.dart';
 import '../widgets/sidebar/sidebar.dart';
 
@@ -16,7 +16,6 @@ class ProjectPage extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => ProjectState(_workingPath)),
         ChangeNotifierProvider(create: (context) => ProjectState(_workingPath)),
-        ChangeNotifierProvider(create: (context) => MatrixState()),
       ],
 
       child: Builder(

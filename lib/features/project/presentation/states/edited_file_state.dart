@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mosaico_ide/features/project/data/models/project_file.dart';
 
-class ProjectFileState extends ChangeNotifier {
+class EditedFileState extends ChangeNotifier {
   final ProjectFile file;
 
-  ProjectFileState(this.file);
+  EditedFileState(this.file);
 
   /// Add content to the file
   void appendContent(String content) {
@@ -23,4 +23,12 @@ class ProjectFileState extends ChangeNotifier {
     file.save();
     notifyListeners();
   }
+
+  /// Check if last line is empty
+  bool isLastLineEmpty() {
+    var content = file.getContent();
+    var lines = content.split('\n');
+    return lines.last.isEmpty;
+  }
+
 }

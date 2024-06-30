@@ -9,15 +9,12 @@ class SaveProjectButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: context.watch<ProjectState>().getSelectedEditor() != null,
-      child: FloatingActionButton(
-        onPressed: (){
-          context.read<ProjectState>().getSelectedEditor().saveChanges();
-          Toaster.success('Saved!');
-        },
-        child: const Icon(Icons.save),
-      ),
+    return FloatingActionButton(
+      onPressed: () async {
+        await context.read<ProjectState>().getSelectedEditor().saveChanges();
+        Toaster.success('Saved!');
+      },
+      child: const Icon(Icons.save),
     );
   }
 }
