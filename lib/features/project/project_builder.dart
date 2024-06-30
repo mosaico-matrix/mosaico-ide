@@ -66,7 +66,7 @@ class ProjectBuilder
 
   /// Main script used to program the widget
   static void _createWidgetScript(String directoryPath) async {
-    var file = File('$directoryPath/widget.dart');
+    var file = File('$directoryPath/widget.chai');
     await file.writeAsString(
         '''
           global standardText = _DrawableText();

@@ -5,11 +5,13 @@ import 'package:provider/provider.dart';
 import 'package:mosaico_flutter_core/toaster.dart';
 import '../states/project_state.dart';
 import '../states/sidebar_state.dart';
+import 'editors/widget_script_editor.dart';
 
 class Sidebar extends StatelessWidget {
 
   // Register all available editors
   final List<Editor> editors = [
+    WidgetScriptEditor(),
     ConfigFormEditor(),
   ];
 

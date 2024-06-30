@@ -75,8 +75,6 @@ class ConfigFormEditor extends Editor {
 
           // Export the output to the archive
           Toaster.success('Built!');
-          var a = await WidgetConfigurationsService.uploadWidgetConfiguration(1, 'MAIZ', output.exportToArchive());
-
           },
       ),
     ];
