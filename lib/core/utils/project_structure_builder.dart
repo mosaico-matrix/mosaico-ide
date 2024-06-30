@@ -1,6 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
+/// The purpose of this file is to create the necessary files to initialize a new project
+/// The files created are:
+/// - widget.chai: The main script used to program the widget
+/// - config-form.json: A file used as a template for the user's configurations for every widget
+/// - mosaico.json: A file containing metadata about the project, think it like a package.json file
 class ProjectBuilder
 {
 
