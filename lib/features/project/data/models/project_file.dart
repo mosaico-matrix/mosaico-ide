@@ -3,12 +3,18 @@ import 'dart:io';
 
 class ProjectFile {
 
-  /// The path where the file is located
-  final String _path;
   ProjectFile(this._path)
   {
     // Load the content of the file
     _content = File(_path).readAsStringSync();
+  }
+
+  /*
+   * File path
+   */
+  final String _path;
+  String getPath() {
+    return _path;
   }
 
   /*

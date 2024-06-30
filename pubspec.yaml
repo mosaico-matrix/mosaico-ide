@@ -45,6 +45,7 @@ dependencies:
   highlight: any
   flutter_highlight: any
   shared_preferences: ^2.2.3
+  archive: ^3.6.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

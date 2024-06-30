@@ -45,6 +45,7 @@ class ConfigFormEditor extends MatrixEditor {
           }
 
           // Export the output to the archive
+          //output.exportToArchive();
           Toaster.success('Built!');
 
           },
