@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mosaico_flutter_core/core/exceptions/exception_handler.dart';
 import 'package:mosaico_flutter_core/core/configuration/app_color_scheme.dart';
+import 'package:mosaico_flutter_core/core/utils/toaster.dart';
 import 'package:toastification/toastification.dart';
 import 'features/welcome/presentation/pages/welcome_page.dart';
 
@@ -19,6 +20,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Toaster.setAlignment(Alignment.bottomLeft);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

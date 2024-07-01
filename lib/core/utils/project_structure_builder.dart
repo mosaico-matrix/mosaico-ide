@@ -59,14 +59,18 @@ class ProjectBuilder
   }
 
   static void _createWidgetMetadata(String directoryPath, String projectName) async {
-
-    // Create metadata file from map to json
-    var metadata = {
-      'name': projectName,
-      'description': '',
-    };
-    var file = File('$directoryPath/mosaico.json');
-    await file.writeAsString(jsonEncode(metadata));
+    await File('$directoryPath/mosaico.json').writeAsString(
+        '''
+          {
+            "name": "$projectName",
+            "description": "A new Mosaico project",
+            "version": "1.0",
+            "software_version": "1.0",
+            "author": "Mosaico Team",
+            "fps": 20
+          }
+        '''
+    );
   }
 
   /// Main script used to program the widget
@@ -74,12 +78,12 @@ class ProjectBuilder
     var file = File('$directoryPath/widget.chai');
     await file.writeAsString(
         '''
-          global standardText = _DrawableText();
-          standardText.setText("Hey there!");
-          def loop()
-          {
-            standardText.setColor(RANDOM_COLOR());
-          }
+global standardText = _DrawableText();
+standardText.setText("Hey there!");
+def loop()
+{
+  standardText.setColor(RANDOM_COLOR());
+}
         '''
     );
   }

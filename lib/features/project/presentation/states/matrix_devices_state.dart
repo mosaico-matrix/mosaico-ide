@@ -19,15 +19,15 @@ class MatrixDevicesState extends ChangeNotifier {
   /*
   * Matrix actions
   */
-  void checkActiveMatrixConnection() async {
+  void ensureConnectedOrThrow() async {
     CoapService.setMatrixIp(matrixIp);
     // this crashes if the matrix is not connected
     var widget = await _widgetsRepository.getInstalledWidgets();
-    Toaster.success('Connected to matrix');
   }
 
-  Future sendProjectToMatrix(String archivePath) async {
-    await _widgetsRepository.sendProjectToMatrix(archivePath);
-    Toaster.success('Project sent to matrix');
+  Future playProjectOnMatrix(String projectName, String archivePath) async {
+    var result = await _widgetsRepository.installDevelopedWidget(projectName: projectName, archivePath: archivePath);
+    await _widgetsRepository.previewWidget(widgetId: result.id);
   }
+
 }

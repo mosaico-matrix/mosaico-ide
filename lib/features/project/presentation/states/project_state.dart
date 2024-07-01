@@ -5,7 +5,9 @@ import 'package:archive/archive_io.dart';
 import 'package:flutter/material.dart';
 import 'package:mosaico_ide/features/project/data/models/project_file.dart';
 import 'package:mosaico_ide/features/project/presentation/widgets/editor/editors/widget_script_editor.dart';
+import 'package:path_provider/path_provider.dart';
 import '../widgets/editor/editors/config_form_editor.dart';
+import '../widgets/editor/editors/metadata_editor.dart';
 import '../widgets/editor/matrix_editor.dart';
 
 class ProjectState extends ChangeNotifier {
@@ -38,6 +40,7 @@ class ProjectState extends ChangeNotifier {
   late final List<MatrixEditor> _editors = [
     WidgetScriptEditor(file: ProjectFile('$_projectPath/widget.chai')),
     ConfigFormEditor(file: ProjectFile('$_projectPath/config-form.json')),
+    MetadataEditor(file: ProjectFile('$_projectPath/mosaico.json')),
   ];
 
   /// Set the selected editor
@@ -59,33 +62,39 @@ class ProjectState extends ChangeNotifier {
   /*
    * Project actions
    */
+
+  /// Save all changes in the project
+  Future saveAll() async
+  {
+    for (var editor in _editors) {
+      await editor.saveChanges();
+    }
+  }
+
+
   /// Creates a .tar.gz package of the project and returns the path to the archive
   Future<String> buildProjectPackage() async {
 
-    // Check if build directory exists
-    var buildDir = Directory('$_projectPath/build');
-    if (!await buildDir.exists()) {
-      await buildDir.create();
-    }
+    // Create temp path
+    Directory tempDir = await getTemporaryDirectory();
 
     // Define the source directory and the output file
-    final outputFile = File('${buildDir.path}/widget.tar.gz');
+    final sourceDir = Directory(_projectPath);
+    final outputFile = File('$tempDir/widget.tar.gz');
 
     // Create an archive
     final encoder = TarFileEncoder();
-    encoder.open('${buildDir.path}/widget.tar');
+    encoder.open('$tempDir/config.tar');
 
     // Add the contents of the directory to the archive
-    for (var editor in _editors) {
-      encoder.addFile(File(editor.file.getPath()));
-    }
+    encoder.addDirectory(sourceDir, includeDirName: false);
 
     // Close the archive to finalize the tar file
     encoder.close();
 
     // Read the tar file
-    final tarFile = File('${buildDir.path}/widget.tar');
-    final tarBytes = await tarFile.readAsBytes();
+    final tarFile = File('$tempDir/config.tar');
+    final tarBytes = tarFile.readAsBytesSync();
 
     // Compress the tar file using gzip
     final gzBytes = GZipEncoder().encode(tarBytes);
@@ -93,7 +102,7 @@ class ProjectState extends ChangeNotifier {
     // Write the compressed file to disk
     await outputFile.writeAsBytes(gzBytes!);
 
-    // Delete the intermediate tar file
+    // Optionally delete the intermediate tar file
     await tarFile.delete();
 
     return outputFile.path;

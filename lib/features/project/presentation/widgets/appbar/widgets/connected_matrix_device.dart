@@ -11,7 +11,6 @@ class ConnectedMatrixDevice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var projectState = Provider.of<ProjectState>(context);
 
     return ChangeNotifierProvider(
       create: (context) => MatrixDevicesState(),
@@ -29,22 +28,31 @@ class ConnectedMatrixDevice extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(Icons.play_arrow),
-                onPressed: () async {
-
-                  // Check matrix connection
-                  deviceState.checkActiveMatrixConnection();
-
-                  // Build project
-                  var archivePath = await projectState.buildProjectPackage();
-
-                  // Send project to matrix
-                  deviceState.sendProjectToMatrix(archivePath);
-                },
+                onPressed: () => playOnMatrix(context),
               ),
             ],
           );
         },
       ),
     );
+  }
+
+  void playOnMatrix(BuildContext context) async {
+
+    // Get project and device state
+    var deviceState = Provider.of<MatrixDevicesState>(context, listen: false);
+    var projectState = Provider.of<ProjectState>(context, listen: false);
+
+    // Save project
+    projectState.saveAll();
+
+    // Check matrix connection
+    deviceState.ensureConnectedOrThrow(); // this throws an exception if the matrix is not connected
+
+    // Build project
+    var projectArchivePath = await projectState.buildProjectPackage();
+
+    // Send project to matrix
+    await deviceState.playProjectOnMatrix(projectState.getName(), projectArchivePath);
   }
 }
