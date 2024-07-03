@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:mosaico_flutter_core/core/exceptions/exception_handler.dart';
 import 'package:mosaico_flutter_core/core/configuration/app_color_scheme.dart';
 import 'package:mosaico_flutter_core/core/utils/toaster.dart';
+import 'package:mosaico_flutter_core/features/mosaico_loading/presentation/states/mosaico_loading_state.dart';
 import 'package:toastification/toastification.dart';
 import 'features/welcome/presentation/pages/welcome_page.dart';
 
 void main() {
+  var  loadingState = MosaicoLoadingState();
   runZonedGuarded(() {
     runApp(const ToastificationWrapper(child: App()));
   }, (error, stackTrace) {
-    handleException(error, stackTrace);
+    handleException(error, stackTrace,loadingState);
   });
 }
 
