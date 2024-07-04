@@ -23,37 +23,37 @@ class ProjectBuilder
     var file = File('$directoryPath/config-form.json');
     await file.writeAsString(
         '''
-          {
-          "form": {
-          "title": "Widget Configuration",
-          "description": "Configure your widget here",
-            "fields": [
-              {
-                "name": {
-                  "type": "string",
-                  "label": "Name",
-                  "required": true,
-                  "placeholder": "Enter some text here :)",
-                  "validation": {
-                    "minLength": 3,
-                    "maxLength": 20
-                  }
-                }
-              },
-              {
-                "email": {
-                  "type": "string",
-                  "label": "Description",
-                  "required": true,
-                  "placeholder": "Some other text",
-                  "validation": {
-                    "pattern": "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\$"
-                  }
-                }
-              }
-            ]
-          }
+{
+"form": {
+"title": "Widget Configuration",
+"description": "Configure your widget here",
+  "fields": [
+    {
+      "name": {
+        "type": "string",
+        "label": "Name",
+        "required": true,
+        "placeholder": "Enter some text here :)",
+        "validation": {
+          "minLength": 3,
+          "maxLength": 20
         }
+      }
+    },
+    {
+      "email": {
+        "type": "string",
+        "label": "Description",
+        "required": true,
+        "placeholder": "Some other text",
+        "validation": {
+          "pattern": "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\$"
+        }
+      }
+    }
+  ]
+}
+}
         '''
     );
   }
@@ -61,14 +61,15 @@ class ProjectBuilder
   static void _createWidgetMetadata(String directoryPath, String projectName) async {
     await File('$directoryPath/mosaico.json').writeAsString(
         '''
-          {
-            "name": "$projectName",
-            "description": "A new Mosaico project",
-            "version": "1.0",
-            "software_version": "1.0",
-            "author": "Mosaico Team",
-            "fps": 20
-          }
+{
+  "name": "$projectName",
+  "description": "A new Mosaico project",
+  "version": "1.0",
+  "software_version": "1.0",
+  "author": "Mosaico Team",
+  "fps": 20,
+  "configurable": false
+}
         '''
     );
   }

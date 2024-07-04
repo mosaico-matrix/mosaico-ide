@@ -16,10 +16,11 @@ class Sidebar extends StatelessWidget {
           SidebarHeader(),
 
           // List of file editors
-          SidebarEditors(),
+          Expanded(
+            child: SidebarEditors(),
+          ),
 
           // Divide the editors from the bottom
-          Spacer(),
           Divider(),
           SidebarBottom(),
         ],
