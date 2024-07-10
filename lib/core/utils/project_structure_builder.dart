@@ -64,7 +64,7 @@ class ProjectBuilder
 {
   "name": "$projectName",
   "description": "A new Mosaico project",
-  "version": "1.0",
+  "widget_version": "1.0",
   "software_version": "1.0",
   "author": "Mosaico Team",
   "fps": 20,
