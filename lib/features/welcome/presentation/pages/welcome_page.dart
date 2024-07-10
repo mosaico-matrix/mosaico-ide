@@ -1,9 +1,10 @@
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:mosaico_flutter_core/common/widgets/matrices/led_matrix.dart';
 import 'package:mosaico_ide/features/project/presentation/pages/project_page.dart';
-import 'package:mosaico_flutter_core/common/widgets/led_matrix.dart';
 import '../../../../core/utils/project_structure_builder.dart';
+import 'package:mosaico_flutter_core/common/widgets/matrices/loading_matrix.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -20,7 +21,7 @@ class WelcomePage extends StatelessWidget {
           children: [
 
             // Matrix animation
-            const LedMatrix(ledHeight: 25, n: 10),
+            LoadingMatrix(n: 20,),
 
             const SizedBox(height: 50),
 

@@ -38,7 +38,7 @@ class ProjectState extends ChangeNotifier {
    */
   MatrixEditor? _selectedEditor;
   late final List<MatrixEditor> _editors = [
-    WidgetScriptEditor(file: ProjectFile('$_projectPath/widget.chai')),
+    WidgetScriptEditor(file: ProjectFile('$_projectPath/widget.py')),
     ConfigFormEditor(file: ProjectFile('$_projectPath/config-form.json')),
     MetadataEditor(file: ProjectFile('$_projectPath/mosaico.json')),
   ];

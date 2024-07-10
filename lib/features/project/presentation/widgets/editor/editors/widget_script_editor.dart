@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:highlight/languages/javascript.dart';
+import 'package:highlight/languages/python.dart';
 import 'package:mosaico_flutter_core/core/utils/toaster.dart';
 import 'package:mosaico_flutter_core/features/config_generator/data/models/config_output.dart';
 import 'package:mosaico_flutter_core/features/config_generator/presentation/pages/config_form_page.dart';
@@ -17,7 +18,7 @@ class WidgetScriptEditor extends MatrixEditor {
       : super(
           icon: const Icon(Icons.code),
           title: 'Widget Script',
-          language: javascript,
+          language: python,
         );
 
   @override
