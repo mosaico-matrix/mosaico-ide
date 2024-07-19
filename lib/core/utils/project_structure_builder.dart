@@ -33,22 +33,15 @@ class ProjectBuilder
         "type": "string",
         "label": "Name",
         "required": true,
-        "placeholder": "Enter some text here :)",
-        "validation": {
-          "minLength": 3,
-          "maxLength": 20
-        }
+        "placeholder": "Enter some text here :)"
       }
     },
     {
-      "email": {
+      "description": {
         "type": "string",
         "label": "Description",
         "required": true,
-        "placeholder": "Some other text",
-        "validation": {
-          "pattern": "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\$"
-        }
+        "placeholder": "Some other text"
       }
     }
   ]
@@ -81,43 +74,10 @@ class ProjectBuilder
         '''
 from mosaico import widget
 
-# A nice rectangle
-rectTop = widget.createRectangle()
-rectTop.translateY(10)
-rectTop.translateX(-rectTop.getWidth())
+# Called on widget load
 
-# Another nice rectangle
-rectTop2 = widget.createRectangle()
-rectTop2.translateY(10)
-rectTop2.translateX(64+rectTop2.getWidth())
-
-# A nice rectangle
-rectBottom = widget.createRectangle()
-rectBottom.translateY(40)
-rectBottom.translateX(-rectBottom.getWidth())
-
-# Another nice rectangle
-rectBottom2 = widget.createRectangle()
-rectBottom2.translateY(40)
-rectBottom2.translateX(64+rectBottom2.getWidth())
-
-# A nice text
-text = widget.createText()
-text.setText("Hello World")
-text.translateX(10)
-text.translateY(25)
-
-
-i = 0
+# Called once each frame
 def loop():
-    global i
-    i += 1
-    if i > 70:
-        i = 0
-    rectTop.moveTo(i, rectTop.getY())
-    rectTop2.moveTo(63-i-rectTop2.getWidth(), rectTop2.getY())
-    rectBottom.moveTo(i, rectBottom.getY())
-    rectBottom2.moveTo(63-i-rectBottom2.getWidth(), rectBottom2.getY())
     pass
         '''
     );

@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = mosaico_ide
+PRODUCT_NAME = Mosaico IDE
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.murkrow.mosaicoide.mosaicoIde
+PRODUCT_BUNDLE_IDENTIFIER = com.murkrow.mosaicoide
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2024 com.murkrow.mosaicoide. All rights reserved.
+PRODUCT_COPYRIGHT = "None"

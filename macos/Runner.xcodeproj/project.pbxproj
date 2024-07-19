@@ -195,7 +195,6 @@
 				0DC9466CEC6CA9CF85CC1305 /* Pods-RunnerTests.release.xcconfig */,
 				FD79262F07AE900AF733066E /* Pods-RunnerTests.profile.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -711,6 +710,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.murkrow.mosaicoide;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

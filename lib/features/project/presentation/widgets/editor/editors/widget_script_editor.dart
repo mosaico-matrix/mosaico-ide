@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_code_editor/flutter_code_editor.dart';
 import 'package:highlight/languages/javascript.dart';
 import 'package:highlight/languages/python.dart';
 import 'package:mosaico_flutter_core/core/utils/toaster.dart';
@@ -27,17 +28,17 @@ class WidgetScriptEditor extends MatrixEditor {
 
     return [
       IconButton(
-        icon: Icon(Icons.text_fields),
+        icon: const Icon(Icons.text_fields),
         tooltip: 'Create text',
         onPressed: () {
-          addScriptComponent(editedFileState, 'global text = _createText();');
+          addScriptComponent(editedFileState, 'text = widget.createText()');
         },
       ),
       IconButton(
-        icon: Icon(Icons.rectangle),
+        icon: const Icon(Icons.rectangle),
         tooltip: 'Create rectangle',
         onPressed: () {
-          addScriptComponent(editedFileState, 'global rectangle = _createRectangle();');
+          addScriptComponent(editedFileState, 'rectangle = widget.createRectangle()');
         },
       ),
     ];
@@ -48,6 +49,6 @@ class WidgetScriptEditor extends MatrixEditor {
     if (!editedFileState.isLastLineEmpty()) {
       content = "\n$content";
     }
-    editedFileState.appendContent(content);
+    codeController.insertStr(content);
   }
 }
