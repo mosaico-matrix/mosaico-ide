@@ -75,6 +75,7 @@ class ProjectState extends ChangeNotifier {
   /// Creates a .tar.gz package of the project and returns the path to the archive
   Future<String> buildProjectPackage() async {
 
+
     // Create temp path
     Directory tempDir = await getTemporaryDirectory();
 
@@ -86,8 +87,20 @@ class ProjectState extends ChangeNotifier {
     final encoder = TarFileEncoder();
     encoder.open('$tempDir/config.tar');
 
-    // Add the contents of the directory to the archive
-    encoder.addDirectory(sourceDir, includeDirName: false);
+    // Add all files in the project directory to the archive
+    var files = sourceDir.listSync(recursive: false);
+    for (var file in files) {
+      if (file is File) {
+        final filename = file.path.substring(_projectPath.length + 1);
+        encoder.addFile(file, filename);
+      }
+    }
+
+    // Add the assets folder if it exists
+    final assetsDir = Directory('$_projectPath/assets');
+    if (assetsDir.existsSync()) {
+      encoder.addDirectory(assetsDir, includeDirName: true);
+    }
 
     // Close the archive to finalize the tar file
     encoder.close();
@@ -106,6 +119,10 @@ class ProjectState extends ChangeNotifier {
     await tarFile.delete();
 
     return outputFile.path;
+
+
+
+
   }
 
 }
