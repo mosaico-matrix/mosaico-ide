@@ -92,22 +92,22 @@ class ProjectState extends ChangeNotifier {
     for (var file in files) {
       if (file is File) {
         final filename = file.path.substring(_projectPath.length + 1);
-        encoder.addFile(file, filename);
+        await encoder.addFile(file, filename);
       }
     }
 
     // Add the assets folder if it exists
     final assetsDir = Directory('$_projectPath/assets');
     if (assetsDir.existsSync()) {
-      encoder.addDirectory(assetsDir, includeDirName: true);
+      await encoder.addDirectory(assetsDir, includeDirName: true);
     }
 
     // Close the archive to finalize the tar file
-    encoder.close();
+    await encoder.close();
 
     // Read the tar file
     final tarFile = File('$tempDir/config.tar');
-    final tarBytes = tarFile.readAsBytesSync();
+    final tarBytes = await tarFile.readAsBytes();
 
     // Compress the tar file using gzip
     final gzBytes = GZipEncoder().encode(tarBytes);
@@ -119,9 +119,6 @@ class ProjectState extends ChangeNotifier {
     await tarFile.delete();
 
     return outputFile.path;
-
-
-
 
   }
 
