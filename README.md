@@ -1,16 +1,44 @@
-# mosaico_ide
+# Mosaico Software
 
-A new Flutter project.
+![Mosaico Logo](./icon.png)
 
-## Getting Started
+Welcome to the Mosaico IDE repository!
+This is a dummy IDE that allows you to quickly get started creating widgets for the Mosaico LED matrix ecosystem.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## Table of Contents
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. [Introduction](#introduction)
+2. [Requirements](#requirements)
+3. [Installation](#installation)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Introduction
+Mosaico allows users and developers to create, share, and display custom widgets on an LED matrix.
+More infos about the project can be found on the [Mosaico Website](https://mosaico.murkrowdev.org).
+
+
+## Requirements
+- Flutter SDK
+
+---
+
+## Installation
+For now, no binaries are provided. Just clone the repository and run the project with Flutter.
+
+---
+
+## Contributing
+
+We welcome contributions! Feel free to open an issue or submit a pull request.
+
+---
+
+## License
+
+This software is licensed under the AGPL-3.0 License. A copy of the license can be found in the [LICENSE](./LICENSE) file.
+
+---
+
+Feel free to reach out if you have any questions or need further assistance!
