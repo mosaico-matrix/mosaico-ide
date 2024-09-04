@@ -1,4 +1,4 @@
-# Mosaico Software
+# Mosaico IDE
 
 ![Mosaico Logo](./icon.png)
 
